@@ -3,30 +3,21 @@
   <head>
     <meta charset="utf-8" />
     <title>AR Expo</title>
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico" />
     <link rel="stylesheet" href="./index.css" />
-    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
   </head>
-  <body loading>
-    <a-scene
-      color-space="sRGB"
-      renderer="colorManagement: true, physicallyCorrectLights"
-      mindar-image="imageTargetSrc: ./assets/target/targets.mind; autoStart: true">
+  <body>
+    <a-scene color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" mindar-image="imageTargetSrc: ./assets/targets.mind; autoStart: true">
       <a-assets>
-        <img
-          id="scene-asset"
-          crossorigin="anonymous"
-          src="./assets/scene/scene.png" />
+        <img id="image-01-asset" src="./assets/target-01/image.png" />
+        <audio id="sound-01-asset" src="./assets/target-01/sound.mp3" crossorigin="anonymous" preload="auto" loop="true"></audio>
+        <video id="video-01-asset" src="./assets/target-01/video.mov" crossorigin="anonymous" preload="auto" loop="true"></video>
       </a-assets>
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-      <a-entity id="target" mindar-image-target="targetIndex: 0">
-        <a-image
-          id="scene"
-          src="#scene-asset"
-          position="0 0 0.1"
-          rotation="0 0 0"
-          height="1"
-          width="1"></a-image>
+      <a-camera id="camera" position="0 0 0" look-controls="enabled: false"></a-camera>
+      <a-entity id="target-01" mindar-image-target="targetIndex: 0">
+        <a-sound id="sound-01" src="#sound-01-asset"></a-sound>
+        <!-- <a-image id="image-01" src="#image-01-asset" height="1.4"></a-image> -->
+        <a-video id="video-01" src="#video-01-asset" height="1.4"></a-video>
       </a-entity>
     </a-scene>
     <script type="module" src="./index.js"></script>
