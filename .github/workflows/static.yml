@@ -27,3 +27,11 @@ jobs:
 
       - name: Build project
         run: pnpm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # This path should match the output of your build process
+          # If your Pages source is `/docs`, then this should be `build/docs`
+          # If your Pages source is `/ (root)`, then this should be `build`
+          path: ./build
