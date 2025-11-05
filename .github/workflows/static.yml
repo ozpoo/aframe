@@ -10,28 +10,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
-
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'pnpm'
-
       - name: Install dependencies
         run: pnpm install
-
       - name: Build project
         run: pnpm run build
-
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
-          # This path should match the output of your build process
-          # If your Pages source is `/docs`, then this should be `build/docs`
-          # If your Pages source is `/ (root)`, then this should be `build`
-          path: ./build
+          source: ./src
+          destination: ./dist
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
